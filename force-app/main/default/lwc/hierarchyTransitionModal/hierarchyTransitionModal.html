@@ -1,0 +1,33 @@
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" padding="around-medium" class="slds-border_bottom">
+            <div class="slds-text-heading_medium slds-text-align_center">{modalTitle}</div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="3" padding="around-small" class="slds-border_right">
+            <p class="slds-p-horizontal_small">
+                <c-hierarchy-transition-progress-bar items={items}></c-hierarchy-transition-progress-bar>
+            </p>
+        </lightning-layout-item>
+        <lightning-layout-item size="9" padding="around-small" >
+            <p class="slds-p-horizontal_small">
+                <slot></slot>
+            </p>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" padding="around-small" class="slds-border_top slds-theme_shade">
+            <div lwc:if={isFirstItem}>
+                <lightning-button label="Cancel" class="slds-float_left" onclick={handleCancel}></lightning-button>
+            </div>
+            <div lwc:else>
+                <lightning-button label="Previous" class="slds-float_left" onclick={handlePrevious}></lightning-button>
+            </div>
+            <div lwc:if={isLastItem}>
+                <lightning-button variant="brand" label="Submit" class="slds-float_right" onclick={handleSubmit}></lightning-button>
+            </div>
+            <div lwc:else>
+                <lightning-button variant="brand" label="Next" class="slds-float_right" onclick={handleNext}></lightning-button>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
