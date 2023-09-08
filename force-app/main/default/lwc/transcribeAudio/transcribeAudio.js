@@ -9,8 +9,9 @@ export default class TranscribeAudio extends LightningElement {
 
     @api
     initializeItem(itemData) {
+        const contentDocumentId = itemData;
         // TODO - Display spinner
-        
+
         // TODO - Call to the backend
         
 

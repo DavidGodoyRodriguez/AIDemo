@@ -25,4 +25,17 @@ public with sharing class CallClassificationController {
         }
     }
 
+    @AuraEnabled
+    public static string queryAudioTranscription(Id contentDocumentId){
+        try {
+            
+
+            
+
+            return null;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }
