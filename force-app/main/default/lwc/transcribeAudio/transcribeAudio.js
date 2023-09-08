@@ -1,3 +1,21 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
-export default class TranscribeAudio extends LightningElement {}
+export default class TranscribeAudio extends LightningElement {
+
+    @api
+    getItemDataHook() {
+        return ;
+    }
+
+    @api
+    initializeItem(itemData) {
+        // TODO - Display spinner
+        
+        // TODO - Call to the backend
+        
+
+
+
+    }
+
+}

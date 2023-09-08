@@ -7,7 +7,6 @@ export default class HierarchyTransitionModal extends LightningElement {
     currentItem = {};
     isFirstItem = true;
     isLastItem = false;
-    activeItem = 1;
 
     renderedCallback() {
         if (this.items.length === 0) {
@@ -30,37 +29,53 @@ export default class HierarchyTransitionModal extends LightningElement {
     }
 
     handlePrevious() {
-        //let activeItemIndex = this.currentItem.itemObject.order;
+        let activeItemIndex = this.currentItem.itemObject.order;
         this.isLastItem = false;
 
-        this.hideItem(false);
-        this.activeItem--;
-        this.showItem(this.activeItem);
+        this.hideCurrentItem(false);
+        this.showNewItem(--activeItemIndex);
 
-        if (this.activeItem === 1) {
+        if (activeItemIndex === 1) {
             this.isFirstItem = true;
         }
     }
 
     handleNext() {
+        let activeItemIndex = this.currentItem.itemObject.order;
         this.isFirstItem = false;
 
-        this.hideItem(true);
-        this.activeItem++;
-        this.showItem(this.activeItem);
+        this.validateCurrentItem();
+        let itemData = this.getCurrentItemData();
+        this.hideCurrentItem(true);
+        this.showNewItem(++activeItemIndex);
+        this.initializeNextItem(itemData);
 
-        if (this.activeItem === this.items.length) {
+
+        if (activeItemIndex === this.items.length) {
             this.isLastItem = true;
         }
     }
 
-    hideItem(completed) {
+    validateCurrentItem() {
+        // TODO - Run a validation hook function
+    }
+
+    getCurrentItemData() {
+        return this.currentItem.itemObject.getSlotData();
+    }
+
+    initializeNextItem(itemData) {
+        // Wait some time for the components to render
+        setTimeout(() => this.currentItem.itemObject.initializeItemHook(itemData), 500);
+    }
+
+    hideCurrentItem(completed) {
         this.currentItem.itemObject.hide();
         this.currentItem.completed = completed;
         this.currentItem.active = false;
     }
 
-    showItem(order) {
+    showNewItem(order) {
         this.items.forEach((item) => {
             if (item.itemObject.order ===  order.toString()) {
                 item.itemObject.show();

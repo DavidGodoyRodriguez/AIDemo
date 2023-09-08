@@ -32,7 +32,7 @@ export default class SelectAudioFile extends LightningElement {
     }
 
     @api
-    getSelectedFileId() {
+    getItemDataHook() {
         return this.value;
     }
 
