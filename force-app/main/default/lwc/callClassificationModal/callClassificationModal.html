@@ -1,6 +1,6 @@
 <template>
-    <c-hierarchy-transition-modal modal-title="Call Classification">
-        <c-hierarchy-transition-item item-name="Select Audio File" order="1"><c-select-audio-file></c-select-audio-file></c-hierarchy-transition-item>
+    <c-hierarchy-transition-modal modal-title="Call Classification" lwc:if={recordId}>
+        <c-hierarchy-transition-item item-name="Select Audio File" order="1"><c-select-audio-file record-id={recordId}></c-select-audio-file></c-hierarchy-transition-item>
         <c-hierarchy-transition-item item-name="Transcribe Audio" order="2"><c-transcribe-audio></c-transcribe-audio></c-hierarchy-transition-item>
         <c-hierarchy-transition-item item-name="Classify Call" order="3"><c-classify-call></c-classify-call></c-hierarchy-transition-item>
     </c-hierarchy-transition-modal>

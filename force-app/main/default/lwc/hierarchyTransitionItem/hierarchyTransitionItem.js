@@ -21,4 +21,11 @@ export default class HierarchyTransitionItem extends LightningElement {
         this.visible = false;
     }
 
+    @api 
+    getSlotData() {
+        console.log(JSON.stringify(this.querySelector('slot')));
+
+        
+    }
+
 }

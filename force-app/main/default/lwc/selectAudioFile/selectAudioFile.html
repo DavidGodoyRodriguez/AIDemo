@@ -1,3 +1,7 @@
 <template>
-    Select audio file.
+    <lightning-radio-group name="radioGroup"
+                          label="Select Audio to transcribe"
+                          options={options}
+                          value={value}
+                          onchange={handleChange}></lightning-radio-group>
 </template>
