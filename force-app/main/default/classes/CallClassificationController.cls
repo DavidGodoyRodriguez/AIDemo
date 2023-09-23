@@ -28,7 +28,6 @@ public with sharing class CallClassificationController {
     @AuraEnabled
     public static string queryAudioTranscription(Id contentDocumentId){
         try {
-            
 
             
 

@@ -66,7 +66,7 @@ public with sharing class OpenAIConnector implements ILLMConnector {
      *       {
      *           "message": {
      *               "role": "assistant",
-     *               "content": "{\n\"description\": \"El candidato tiene experiencia como desarrollador en Salesforce pero no se menciona experiencia en proyectos de Marketing\",\n\"result\": false\n}"
+     *               "content": "{\n\"description\": \"The candidate has experience working with Salesforce, but he does not mention having experience with Marketing tools.\",\n\"result\": false\n}"
      *           },
      *           "finish_reason": "stop",
      *           "index": 0
