@@ -16,7 +16,7 @@ public with sharing class CohereConnector implements ILLMConnector {
         Http http = new Http();
         HTTPResponse httpResponse = http.send(httpRequest);
         validateHttpResponse(httpResponse);
-        return trasformIntoLLMMessage(httpResponse.getBody());
+        return trasformIntoLLMMessage(httpResponse.getBod y());
     }
 
     private HttpRequest getHttpRequest() {
