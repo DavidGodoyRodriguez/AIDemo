@@ -1,4 +1,28 @@
 <template>
     <lightning-spinner if:true={loading} alternative-text="Loading"></lightning-spinner>
-    Transcribe audio.
+
+    <section role="log" class="slds-chat">
+        <ul class="slds-chat-list">
+            <template for:each={transcribedAudioSectionsList} for:item="transcribedAudioSection">
+                <li lwc:if={transcribedAudioSection.inbound} 
+                    class="slds-chat-listitem slds-chat-listitem_inbound" 
+                    key={transcribedAudioSection.text}>
+                    <div class="slds-chat-message__body">
+                        <div class="slds-chat-message__text slds-chat-message__text_inbound">
+                            <span>{transcribedAudioSection.text}</span>
+                        </div>
+                    </div>
+                </li>
+                <li lwc:elseif={transcribedAudioSection.outbound} 
+                    class="slds-chat-listitem slds-chat-listitem_outbound" 
+                    key={transcribedAudioSection.text}>
+                    <div class="slds-chat-message__body">
+                        <div class="slds-chat-message__text slds-chat-message__text_outbound">
+                            <span>{transcribedAudioSection.text}</span>
+                        </div>
+                    </div>
+                </li>
+            </template>
+        </ul>
+    </section>
 </template>

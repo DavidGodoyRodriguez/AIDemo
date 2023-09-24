@@ -26,12 +26,38 @@ public with sharing class CallClassificationController {
     }
 
     @AuraEnabled
-    public static string queryAudioTranscription(Id contentDocumentId){
+    public static List<String> queryAudioTranscription(Id contentDocumentId){
         try {
+            List<ContentVersion> contentVersionList = [
+                SELECT VersionData
+                FROM ContentVersion 
+                WHERE ContentDocumentId =: contentDocumentId
+            ];
 
-            
+            if (!contentVersionList.isEmpty()) {
+                Blob rawAudio = contentVersionList.get(0).VersionData;
+                return getConversationPhrases(LLMFacade.getAudioTranscript(rawAudio));
+            }
 
             return null;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    // This method splits in a list each phrase spoken by each speaker
+    private static List<String> getConversationPhrases(String audioTranscription) {
+        return audioTranscription.split('(?=Speaker \\d:)');
+    }
+
+    @AuraEnabled
+    public static void classifyCall(List<String> transcribedAudioList){
+        try {
+            String transcribedAudio = String.join(transcribedAudioList, '');
+            // Call OpenAPI to get a formatted JSON with actions to do in Salesforce
+
+
+            
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
