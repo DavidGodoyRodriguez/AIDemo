@@ -2,6 +2,7 @@ public with sharing class CohereConnector implements ILLMConnector {
     private static ILLMConnector cohereConnectorInstance;
 
     public class CohereConnectorException extends Exception {}
+    public class CohereRetryException extends Exception {}
 
     public static ILLMConnector getInstance() {
         if (cohereConnectorInstance == null) {
@@ -27,9 +28,21 @@ public with sharing class CohereConnector implements ILLMConnector {
     }
 
     public String getCompletion(LLMDTO.RequestCompletion requestCompletion) {
+        try {
+            return sendCompletionRequest(requestCompletion);
+        } catch (CohereRetryException exc) {
+            if (Limits.getCallouts() < Limits.getLimitCallouts()) {
+                return getCompletion(requestCompletion);
+            }
+            return '';
+        }
+    }
+
+    private String sendCompletionRequest(LLMDTO.RequestCompletion requestCompletion) {
         HttpRequest httpRequest = getHttpRequest();
         httpRequest.setEndpoint('callout:Cohere/v1/generate');
         httpRequest.setMethod('POST');
+        httpRequest.setTimeout(120000);
         httpRequest.setBody(buildBodyCompletion(requestCompletion));
         Http http = new Http();
         HTTPResponse httpResponse = http.send(httpRequest);
@@ -87,6 +100,10 @@ public with sharing class CohereConnector implements ILLMConnector {
     }
 
     private void validateHttpResponse(HTTPResponse httpResponse) {
+        // Looks like the Cohere API for generation is a bit prone to errors, retry the calls
+        if (httpResponse.getStatusCode() == 500) {
+            throw new CohereRetryException();
+        }
         if (httpResponse.getStatusCode() != 200) {
             throw new CohereConnectorException('Cohere callout failed with code: ' + httpResponse.getStatusCode() + ', message: ' + httpResponse.getBody());
         }

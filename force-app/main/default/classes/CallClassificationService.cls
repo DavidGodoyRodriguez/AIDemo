@@ -15,7 +15,7 @@ public with sharing class CallClassificationService {
 
     private static String getModelId() {
         // TODO - As a best practice this model Id would be better stored in a Custom Metadata Type.
-        return 'c362656f-3883-48cd-af04-b343358a815e-ft';
+        return '1515b4d8-c5e9-4fc8-b622-891629051b55-ft';
     }
 
     private static String getPrompt() {

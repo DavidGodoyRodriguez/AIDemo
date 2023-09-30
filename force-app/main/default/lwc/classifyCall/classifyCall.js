@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import classifyCall from "@salesforce/apex/CallClassificationController.classifyCall";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ClassifyCall extends LightningElement {
     loading = false;
@@ -16,11 +17,21 @@ export default class ClassifyCall extends LightningElement {
         .catch((error) => {
           this.error = error;
           console.log(error);
+          this.showToast(error);
         })
         .finally(() => {
             this.loading = false;
         });
 
     }
+
+    showToast(error) {
+      const event = new ShowToastEvent({
+          title: 'Toast Error',
+          message: error.body.message,
+          variant: 'error'
+      });
+      this.dispatchEvent(event);
+  }
 
 }
