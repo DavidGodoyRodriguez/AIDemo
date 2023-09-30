@@ -10,8 +10,8 @@ export default class ClassifyCall extends LightningElement {
         
         classifyCall({ transcribedAudioList: itemData })
         .then((result) => {
-          this.transcribedAudioList = result;
-          this.categorizeSpeakerSections();
+          // this.transcribedAudioList = result;
+          // TODO - Create sections of objects to insert in Salesforce
         })
         .catch((error) => {
           this.error = error;

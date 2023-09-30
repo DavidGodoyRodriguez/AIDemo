@@ -16,6 +16,26 @@ public with sharing class OpenAIConnector implements ILLMConnector {
         return openAIConnectorInstance;
     }
 
+    public Boolean hasSystemRole() {
+        return true;
+    }
+
+    public String getSystemRole() {
+        return 'system';
+    }
+
+    public String getAssistantRole() {
+        return 'assistant';
+    }
+
+    public String getUserRole() {
+        return 'user';
+    }
+
+    public String getCompletion(LLMDTO.RequestCompletion requestCompletion) {
+        return '';
+    }
+
     public LLMDTO.Message getChatCompletion(List<LLMDTO.Message> messages) {
         HttpRequest httpRequest = getHttpRequest();
         httpRequest.setEndpoint(BASIC_ENDPOINT + VERSION_API + CHAT_COMPLETIONS);

@@ -53,14 +53,10 @@ public with sharing class CallClassificationController {
     @AuraEnabled
     public static void classifyCall(List<String> transcribedAudioList){
         try {
-            String transcribedAudio = String.join(transcribedAudioList, '');
-            // Call OpenAPI to get a formatted JSON with actions to do in Salesforce
-
-
-            
+            CallClassificationService.classifyCall(transcribedAudioList);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
+    
 }
