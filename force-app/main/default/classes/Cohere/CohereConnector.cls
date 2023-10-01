@@ -31,7 +31,7 @@ public with sharing class CohereConnector implements ILLMConnector {
         try {
             return sendCompletionRequest(requestCompletion);
         } catch (CohereRetryException exc) {
-            if (Limits.getCallouts() < Limits.getLimitCallouts()) {
+            if (Limits.getCallouts() < 6) {
                 return getCompletion(requestCompletion);
             }
             return '';
@@ -102,6 +102,8 @@ public with sharing class CohereConnector implements ILLMConnector {
     private void validateHttpResponse(HTTPResponse httpResponse) {
         // Looks like the Cohere API for generation is a bit prone to errors, retry the calls
         if (httpResponse.getStatusCode() == 500) {
+            System.debug(httpResponse.getStatusCode());
+            System.debug(httpResponse.getBody());
             throw new CohereRetryException();
         }
         if (httpResponse.getStatusCode() != 200) {

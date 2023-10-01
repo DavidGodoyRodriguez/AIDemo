@@ -15,10 +15,12 @@ public with sharing class CallClassificationService {
 
     private static String getModelId() {
         // TODO - As a best practice this model Id would be better stored in a Custom Metadata Type.
-        return '1515b4d8-c5e9-4fc8-b622-891629051b55-ft';
+        return '4d5bf0fb-ebb6-477b-b608-962be9aa86ae-ft';
     }
 
     private static String getPrompt() {
+        // TODO - As a best practice prompts would be better located in Custom Metadata Types, 
+        // so they are more easily adjustable for easier improvements of the prompt design
         return 'You are an assistant for the Salesforce CRM, your company offers medicine and supplement products. ' + 
         'You are reading the customer needs, and translating them to actions that need to be performed ' + 
         'in Salesforce, such as the creation of new contacts, tasks, opportunities or products. ' + 
