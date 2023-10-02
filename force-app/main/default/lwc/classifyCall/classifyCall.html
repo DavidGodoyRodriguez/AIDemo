@@ -1,4 +1,57 @@
 <template>
     <lightning-spinner if:true={loading} alternative-text="Loading"></lightning-spinner>
-    Classify call.
+    <template for:each={contacts} for:item="contact">
+        <lightning-card key={getUniqueKey}>
+            <h3 slot="title">
+                <lightning-icon icon-name="standard:contact" size="small"></lightning-icon>
+                 {contact.FirstName} {contact.LastName}
+            </h3>
+            <div slot="footer">
+                <lightning-button label="Create Contact"></lightning-button>
+            </div>
+            <p class="slds-p-horizontal_small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="6">
+                        <lightning-input type="text" label="Email" value={contact.Email} read-only></lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6">
+                        <lightning-input type="text" label="Phone" value={contact.Phone} read-only></lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12">
+                        <lightning-input type="text" label="Mailing Address" value={contact.MailingStreet} read-only></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </p>
+        </lightning-card>
+    </template>
+
+    <template for:each={opportunities} for:item="opportunity">
+        <lightning-card key={getUniqueKey} title={opportunity.Name} icon-name="standard:opportunity">
+            <div slot="footer">
+                <lightning-button label="Create Opportunity"></lightning-button>
+            </div>
+            <p class="slds-p-horizontal_small">
+                <lightning-input type="text" label="Description" value={opportunity.Description} read-only></lightning-input>
+            </p>
+        </lightning-card>
+    </template>
+
+    <template for:each={tasks} for:item="task">
+        <lightning-card key={getUniqueKey} title="New Task" icon-name="standard:task">
+            <div slot="footer">
+                <lightning-button label="Create Task"></lightning-button>
+            </div>
+            <p class="slds-p-horizontal_small">
+                <lightning-input type="text" label="Description" value={task.Description} read-only></lightning-input>
+            </p>
+        </lightning-card>
+    </template>
+
+    <template for:each={products} for:item="product">
+        <lightning-card key={getUniqueKey} title={product.Name} icon-name="standard:product">
+            <div slot="footer">
+                <lightning-button label="Create Product"></lightning-button>
+            </div>
+        </lightning-card>
+    </template>
 </template>

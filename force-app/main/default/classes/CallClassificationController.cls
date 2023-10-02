@@ -51,9 +51,9 @@ public with sharing class CallClassificationController {
     }
 
     @AuraEnabled
-    public static void classifyCall(List<String> transcribedAudioList){
+    public static CallClassificationService.CallClassificationDTO classifyCall(List<String> transcribedAudioList){
         try {
-            CallClassificationService.classifyCall(transcribedAudioList);
+            return CallClassificationService.classifyCall(transcribedAudioList);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
